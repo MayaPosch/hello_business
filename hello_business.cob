@@ -1,7 +1,7 @@
 IDENTIFICATION DIVISION.
 program-id. hello_business. *> Simple 'Hello World' style example.
 author. Maya Posch.
-date-written. April 7 2024
+date-written. April 7 2025
 
 ENVIRONMENT DIVISION.
 INPUT-OUTPUT SECTION.
@@ -63,6 +63,7 @@ welcome.
 	display 'Welcome to business.'.
 	
 farewell.
+	display 'Report has been generated.'.
 	display 'Thank you for your time.'.
 	
 read-file.
@@ -70,27 +71,27 @@ read-file.
 	open output report-file.
 	INITIATE employee-report.
 	
-	*> read employee-file
-		*> at end move 'Y' to end-of-file
-	*> end-read.
+	read employee-file
+		at end move 'Y' to end-of-file
+	end-read.
 	
-	*> perform until end-of-file = 'Y'
-	perform until 1 <> 1
-		READ employee-file
-			AT END
-				EXIT PERFORM
-		END-READ
+	perform until end-of-file = 'Y'
+	*> perform until 1 <> 1
+		*> READ employee-file
+			*> AT END
+				*> EXIT PERFORM
+		*> END-READ
+		
+		GENERATE employee-line
 	
 		display 'Employee ID: ' employee-id
 		display 'Employee name: ' employee-name
 		display 'Employee salary: $' employee-salary
 		display '------------------------------'
 		
-		GENERATE employee-line
-		
-		*> read employee-file
-			*> at end move 'Y' to end-of-file
-		*> end-read
+		read employee-file
+			at end move 'Y' to end-of-file
+		end-read
 	end-perform.
 	
 	TERMINATE employee-report
